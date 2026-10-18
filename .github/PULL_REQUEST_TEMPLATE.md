@@ -6,6 +6,20 @@
 
 <!-- Link an issue, or write "None". -->
 
+## Contribution category
+
+<!-- Choose one: Documentation / UI/UX and frontend / Core logic and complex features -->
+
+Category:
+
+## Expected contribution level
+
+<!-- Maintainers assign the final badge level after merge. -->
+
+- [ ] Level 1 — Documentation and small improvements
+- [ ] Level 2 — UI/UX and frontend work
+- [ ] Level 3 — Core logic and complex features
+
 ## Changes made
 
 - 

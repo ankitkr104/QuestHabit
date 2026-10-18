@@ -1,0 +1,31 @@
+name: Documentation and small improvement
+description: Suggest documentation, typo, copy, example, or other low-risk improvement.
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Documentation and small improvements are generally **Level 1** contributions.
+        The final badge level is assigned by maintainers after the related PR is merged.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What should be improved?
+      description: Identify the unclear, missing, outdated, or incorrect content.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-change
+    attributes:
+      label: Proposed change
+      description: Describe the wording, documentation, example, or small improvement you suggest.
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: File path, section, page, or URL where the change belongs.
+    validations:
+      required: true

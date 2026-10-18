@@ -1,0 +1,36 @@
+name: UI/UX and frontend
+description: Suggest a layout, component, styling, accessibility, responsive, or frontend improvement.
+title: "[UI/UX]: "
+labels: ["enhancement", "ui/ux"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        UI/UX and frontend work is generally a **Level 2** contribution.
+        The final badge level is assigned by maintainers after the related PR is merged.
+  - type: textarea
+    id: user-problem
+    attributes:
+      label: User problem or opportunity
+      description: What experience is confusing, inaccessible, inconsistent, or missing?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed solution
+      description: Describe the desired interaction, layout, component, or visual change.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the observable behavior or visual outcomes that should be true.
+    validations:
+      required: true
+  - type: textarea
+    id: considerations
+    attributes:
+      label: UX and accessibility considerations
+      description: Mention responsive behavior, keyboard access, focus states, contrast, or reduced motion.

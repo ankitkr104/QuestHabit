@@ -1,0 +1,34 @@
+name: Core logic and complex feature
+description: Suggest a game-rule, scheduling, persistence, data-model, or complex feature change.
+title: "[Core]: "
+labels: ["enhancement", "core-logic"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Core logic and complex features are generally **Level 3** contributions.
+        The final badge level is assigned by maintainers after the related PR is merged.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or goal
+      description: Explain the behavior that needs to change or the capability that is missing.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed solution
+      description: Describe the intended rules, data flow, and user-visible behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: edge-cases
+    attributes:
+      label: Edge cases and compatibility
+      description: Include date boundaries, existing data, migration, import/export, or failure cases.
+  - type: textarea
+    id: testing
+    attributes:
+      label: Testing considerations
+      description: Describe the unit, integration, or regression coverage that should be added.
