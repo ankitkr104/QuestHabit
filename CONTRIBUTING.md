@@ -5,6 +5,10 @@ frontend-only, local-first habit tracker. Contributions are welcome from
 **[Nexus Spring of Code (NSoC)](https://www.nsoc.in/)** participants and the
 wider open source community.
 
+If QuestHabit is useful to you, please
+[star the repository](https://github.com/kumudasrip/QuestHabit) to help more
+people discover it.
+
 Please read the [Code of Conduct](./CODE_OF_CONDUCT.md) before participating.
 
 ## Nexus Spring of Code (NSoC)
@@ -75,12 +79,16 @@ responsibilities of each source file.
 
 ### Local setup
 
-1. Fork the repository and clone your fork:
+1. Fork [kumudasrip/QuestHabit](https://github.com/kumudasrip/QuestHabit) on
+   GitHub, then clone your fork. The GitHub CLI can do both in one step:
 
    ```bash
-   git clone https://github.com/<your-username>/QuestHabit.git
+   gh repo fork kumudasrip/QuestHabit --clone
    cd QuestHabit
    ```
+
+   If you do not use the GitHub CLI, copy the HTTPS clone URL from your fork
+   and run `git clone` with that URL instead.
 
 2. Create a branch from `main`:
 
@@ -216,7 +224,7 @@ git rebase origin/main
 If conflicts occur, resolve each file, stage the resolution, and continue:
 
 ```bash
-git add <resolved-file>
+git add -u
 git rebase --continue
 ```
 

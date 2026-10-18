@@ -99,9 +99,9 @@ Acceptance criteria:
 Acceptance criteria:
 
 - Images are stored in the repository with useful alt text.
-- No placeholder or fabricated demo link remains.
+- No placeholder or fabricated demo link is presented.
 
-**Add contributor automation where justified.** Consider a pull request check for Markdown links and Mermaid blocks once the repository is public.
+**Add contributor automation where justified.** Consider a pull request check for Markdown links and Mermaid blocks as the project grows.
 
 Acceptance criteria:
 

@@ -28,13 +28,7 @@ It is designed for people who want more structure and motivation from habit trac
 
 ## Demo and screenshots
 
-There is no public demo URL yet. After deploying, add the genuine URL here.
-
-Screenshots are intentionally not fabricated. To add them:
-
-1. Capture the onboarding, dashboard, and one responsive/mobile view from a real build.
-2. Save optimized images under `docs/images/`.
-3. Add linked images to this section, with useful alt text.
+[Live Demo](https://quest-habitt.vercel.app/)
 
 ## Features
 
