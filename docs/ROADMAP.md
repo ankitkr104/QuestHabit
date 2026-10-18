@@ -94,7 +94,7 @@ Acceptance criteria:
 
 ### Documentation and contributor experience
 
-**Add genuine screenshots after deployment.** Capture representative desktop and mobile states from a real build and link them from the README.
+**Add genuine screenshots from the live deployment.** Capture representative desktop and mobile states from the [live demo](https://quest-habitt.vercel.app/) and link them from the README.
 
 Acceptance criteria:
 
