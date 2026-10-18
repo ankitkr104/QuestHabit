@@ -16,6 +16,7 @@ It is designed for people who want more structure and motivation from habit trac
 - [Architecture](#architecture)
 - [Contributing](#contributing)
 - [Roadmap](#roadmap)
+- [Project admin](#project-admin)
 - [License](#license)
 
 ## Status and badges
@@ -161,6 +162,15 @@ Useful contribution areas include templates, achievement definitions, cosmetic p
 ## Roadmap
 
 Completed work and proposed milestones are tracked in [docs/ROADMAP.md](./docs/ROADMAP.md). Discuss substantial proposals through GitHub Issues before starting implementation so contributors do not duplicate work.
+
+## Project admin
+
+QuestHabit is administered by [Kumuda Sri P](https://github.com/kumudasrip).
+
+- GitHub: [@kumudasrip](https://github.com/kumudasrip)
+- LinkedIn: [@kumudasrip06](https://www.linkedin.com/in/kumudasrip06/)
+
+For questions, ideas, or anything related to the project, feel free to comment on an existing GitHub Issue or Pull Request, or reach out on LinkedIn.
 
 ## License
 
