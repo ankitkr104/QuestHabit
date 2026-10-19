@@ -23,14 +23,15 @@ flowchart LR
 
 ## Source responsibilities
 
-| Path | Responsibility |
-| --- | --- |
-| `src/main.tsx` | Mounts the React application and imports global styles |
-| `src/App.tsx` | Defines routes, page composition, forms, quest interactions, and derived display values |
-| `src/lib/game.ts` | Defines `Quest`, `Completion`, `Profile`, and `AppState`; calculates local dates, schedules, XP levels, ranks, streaks, starter quests, and templates |
-| `src/lib/storage.ts` | Loads and validates the top-level state shape, merges defaults, catches malformed reads, and catches write failures |
-| `src/styles.css` | Provides the visual system, theme selectors, cards, controls, responsive layout, and mobile navigation |
-| `src/lib/game.test.ts` | Exercises level boundaries, duplicate calendar-day streak handling, weekday scheduling, and custom scheduling rules |
+| Path                              | Responsibility                                                                                                                                                      |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/main.tsx`                    | Mounts the React application and imports global styles                                                                                                              |
+| `src/App.tsx`                     | Defines routes, page composition, forms, quest interactions, and derived display values                                                                             |
+| `src/lib/game.ts`                 | Defines `Quest`, `Completion`, `Profile`, and `AppState`; calculates local dates, schedules, XP levels, ranks, streaks, starter quests, and templates               |
+| `src/lib/storage.ts`              | Loads and validates the top-level state shape, merges defaults, catches malformed reads, and catches write failures                                                 |
+| `src/styles.css`                  | Provides the visual system, theme selectors, cards, controls, responsive layout, and mobile navigation                                                              |
+| `src/lib/game.test.ts`            | Exercises level boundaries, duplicate calendar-day streak handling, weekday scheduling, and custom scheduling rules                                                 |
+| `src/test/accessibility.test.tsx` | Browser-level accessibility tests covering keyboard navigation, dialog focus trap and restoration, accessible names, form labels, mobile navigation, and axe audits |
 
 The current page and interaction composition is intentionally concentrated in `App.tsx`; the roadmap proposes splitting it into feature modules as the UI grows.
 
