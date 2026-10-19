@@ -438,6 +438,61 @@ h1 {
 .field.full {
   grid-column: 1/-1;
 }
+.weekday-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 7px;
+  margin-top: 4px;
+}
+.weekday-btn {
+  padding: 10px 4px;
+  border: 1px solid #ffffff14;
+  border-radius: 12px;
+  background: #0e111b;
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: center;
+  transition: 0.2s ease;
+}
+.weekday-btn:hover {
+  border-color: #8b5cf688;
+  color: #f8fafc;
+  background: #171c2b;
+  transform: translateY(-1px);
+}
+.weekday-btn.selected {
+  border: 1.5px solid #a78bfa;
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  color: #ffffff;
+  box-shadow: 0 4px 14px #8b5cf644;
+}
+.field-hint {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 3px 0 0;
+}
+.field-hint.error {
+  color: #fb7185;
+}
+[data-theme="light"] .weekday-btn {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+[data-theme="light"] .weekday-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+[data-theme="light"] .weekday-btn.selected {
+  border-color: #7c3aed;
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  color: #ffffff;
+  box-shadow: 0 4px 14px #7c3aed33;
+}
+[data-theme="light"] .field-hint.error {
+  color: #e11d48;
+}
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -652,6 +707,7 @@ h1 {
 .button:focus-visible,
 .check:focus-visible,
 .avatar-option:focus-visible,
+.weekday-btn:focus-visible,
 .close:focus-visible,
 .nav a:focus-visible,
 .mobile-nav a:focus-visible,
@@ -668,6 +724,7 @@ label.button:focus-within {
 [data-theme="light"] .button:focus-visible,
 [data-theme="light"] .check:focus-visible,
 [data-theme="light"] .avatar-option:focus-visible,
+[data-theme="light"] .weekday-btn:focus-visible,
 [data-theme="light"] .close:focus-visible,
 [data-theme="light"] .nav a:focus-visible,
 [data-theme="light"] .mobile-nav a:focus-visible,

@@ -39,9 +39,11 @@ import {
   Difficulty,
   Quest,
   Theme,
+  WEEKDAYS,
   blankState,
   dueOn,
   id,
+  isValidQuest,
   levelInfo,
   starterQuests,
   streak,
@@ -1043,22 +1045,38 @@ export function QuestModal({
     difficulty: (quest?.difficulty ?? "Easy") as Difficulty,
     xp: quest?.xp ?? 10,
     frequency: (quest?.frequency ?? "Daily") as Quest["frequency"],
+    weekdays: Array.isArray(quest?.weekdays) ? quest.weekdays : [],
   });
 
-  const set = (k: string, v: string | number) =>
+  const set = (k: string, v: string | number | number[]) =>
     setForm((x) => ({ ...x, [k]: v }));
+
+  const toggleWeekday = (day: number) => {
+    setForm((prev) => {
+      const exists = prev.weekdays.includes(day);
+      const next = exists
+        ? prev.weekdays.filter((d) => d !== day)
+        : [...prev.weekdays, day].sort((a, b) => a - b);
+      return { ...prev, weekdays: next };
+    });
+  };
+
   const titleInputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useDialogFocus(true, close, triggerRef, titleInputRef);
 
+  const canSave = isValidQuest(form);
+
   const save = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!form.title.trim()) return;
+    if (!canSave) return;
 
     if (isEdit && quest) {
       const updatedQuest: Quest = {
         ...quest,
         ...form,
         title: form.title.trim(),
+        weekdays:
+          form.frequency === "Custom" ? form.weekdays : (quest.weekdays ?? []),
       };
       update(
         {
@@ -1075,7 +1093,7 @@ export function QuestModal({
         title: form.title.trim(),
         id: id(),
         duration: 15,
-        weekdays: [],
+        weekdays: form.frequency === "Custom" ? form.weekdays : [],
         startDate: today(),
         status: "active",
         createdAt: new Date().toISOString(),
@@ -1224,8 +1242,41 @@ export function QuestModal({
                 <option value="Daily">Daily</option>
                 <option value="Weekdays">Weekdays</option>
                 <option value="Weekly">Weekly</option>
+                <option value="Custom">Custom</option>
               </select>
             </div>
+            {form.frequency === "Custom" && (
+              <div className="field full">
+                <label id="quest-weekdays-label">Repeat on weekdays</label>
+                <div
+                  role="group"
+                  aria-labelledby="quest-weekdays-label"
+                  className="weekday-grid"
+                >
+                  {WEEKDAYS.map(({ day, label, short }) => {
+                    const isSelected = form.weekdays.includes(day);
+                    return (
+                      <button
+                        key={day}
+                        type="button"
+                        aria-pressed={isSelected}
+                        aria-label={label}
+                        title={label}
+                        className={`weekday-btn ${isSelected ? "selected" : ""}`}
+                        onClick={() => toggleWeekday(day)}
+                      >
+                        {short}
+                      </button>
+                    );
+                  })}
+                </div>
+                {form.weekdays.length === 0 && (
+                  <p className="field-hint error" role="alert">
+                    Please select at least one weekday.
+                  </p>
+                )}
+              </div>
+            )}
           </div>
           <div
             className="actions"
@@ -1234,11 +1285,7 @@ export function QuestModal({
             <button type="button" className="button ghost" onClick={close}>
               Cancel
             </button>
-            <button
-              type="submit"
-              className="button"
-              disabled={!form.title.trim()}
-            >
+            <button type="submit" className="button" disabled={!canSave}>
               {isEdit ? "Save changes" : "Create quest"}
             </button>
           </div>
