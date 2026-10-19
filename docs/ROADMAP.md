@@ -14,6 +14,7 @@ This roadmap separates verified functionality from proposed work. It is intentio
 - JSON export, basic shape-validated import, and local reset
 - Responsive navigation and static Vercel deployment configuration
 - Type checking, linting, Vitest coverage for core rules, production build, and CI workflow
+- Browser-level accessibility checks with Vitest, axe-core, testing-library, keyboard navigation, and dialog focus trapping
 
 ## Proposed milestones
 
@@ -36,14 +37,6 @@ Acceptance criteria:
 - Invalid values are announced and cannot be saved.
 
 ### Accessibility and responsive design
-
-**Add browser-level accessibility checks.** Cover onboarding, quest completion, modal focus, navigation, and settings.
-
-Acceptance criteria:
-
-- Keyboard users can reach every visible action.
-- Dialogs have labels and sensible focus behavior.
-- Mobile navigation remains usable at narrow widths.
 
 **Implement the reduced-motion preference.** Connect the existing profile field to animations and transitions once motion effects are introduced.
 

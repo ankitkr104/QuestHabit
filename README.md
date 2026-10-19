@@ -63,16 +63,16 @@ It is designed for people who want more structure and motivation from habit trac
 
 ## Technology
 
-| Technology | Role |
-| --- | --- |
-| React | UI and page composition |
-| TypeScript | Domain and component type safety |
-| Vite | Development server and static production build |
-| React Router | Browser-side navigation |
-| Lucide React | Interface icons |
-| Vitest | Pure game-logic tests |
-| ESLint and Prettier | Code quality and formatting |
-| Browser `localStorage` | Local persistence |
+| Technology             | Role                                           |
+| ---------------------- | ---------------------------------------------- |
+| React                  | UI and page composition                        |
+| TypeScript             | Domain and component type safety               |
+| Vite                   | Development server and static production build |
+| React Router           | Browser-side navigation                        |
+| Lucide React           | Interface icons                                |
+| Vitest                 | Pure game-logic tests                          |
+| ESLint and Prettier    | Code quality and formatting                    |
+| Browser `localStorage` | Local persistence                              |
 
 `recharts` and `motion` are declared dependencies for the project's planned analytics and interaction improvements; the current screens use CSS-based presentation and do not yet depend on them at runtime.
 
@@ -93,7 +93,8 @@ Available commands:
 npm run dev       # Start the Vite development server
 npm run typecheck # Run the TypeScript project check
 npm run lint      # Run ESLint
-npm test          # Run Vitest once
+npm test          # Run Vitest once (unit and accessibility checks)
+npm run test:a11y # Run browser-level accessibility checks
 npm run build     # Type-check and create dist/
 npm run format    # Format files with Prettier
 ```

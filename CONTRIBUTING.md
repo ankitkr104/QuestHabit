@@ -191,12 +191,13 @@ merged.
 
 GitHub Actions runs these checks on every push and pull request:
 
-| Check | Command |
-| --- | --- |
-| Type check | `npm run typecheck` |
-| Lint | `npm run lint` |
-| Tests | `npm test` |
-| Production build | `npm run build` |
+| Check                | Command             |
+| -------------------- | ------------------- |
+| Type check           | `npm run typecheck` |
+| Lint                 | `npm run lint`      |
+| Tests                | `npm test`          |
+| Accessibility checks | `npm run test:a11y` |
+| Production build     | `npm run build`     |
 
 Run the checks locally before opening a pull request:
 
