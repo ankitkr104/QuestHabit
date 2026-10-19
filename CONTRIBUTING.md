@@ -288,17 +288,6 @@ Before requesting review, confirm that:
 Push follow-up changes to the same branch instead of opening a second pull
 request. CI will run again automatically.
 
-## AI-assisted contributions
-
-AI tools may be used to assist with contributions, but the contributor is
-responsible for every line submitted. AI-assisted pull requests must:
-
-1. Address a real issue or clearly described improvement.
-2. Include a test plan with commands that were actually run.
-3. Be understandable and explainable by the contributor during review.
-4. Stay within the scope of the issue and avoid speculative rewrites.
-5. Preserve QuestHabit's privacy and local-first boundaries.
-
 ## Security and privacy
 
 Never commit API keys, credentials, tokens, private browser exports, or
