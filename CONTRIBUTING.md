@@ -116,6 +116,26 @@ responsibilities of each source file.
 
 ## How to contribute
 
+### Issue ownership and coordination
+
+Please do not start work or open a pull request for an issue until you have
+commented on it with your intended approach and a maintainer has assigned the
+issue to you. This keeps work coordinated and prevents multiple contributors
+from solving the same issue.
+
+Issue assignment follows these guidelines:
+
+- For issues created by maintainers, priority goes to the contributor who
+  comments or otherwise approaches the maintainers first.
+- For issues created by contributors, priority goes to the issue author.
+- If the assigned contributor or issue author does not provide an update
+  within 2–3 days, maintainers may follow up with them.
+- If they do not respond or are no longer working on the issue, maintainers
+  may reassign it to another contributor.
+
+Pull requests opened before the issue has been discussed and assigned may be
+closed or asked to wait until this coordination is complete.
+
 ### Bug reports
 
 Open a bug report using the repository's **Bug report** issue form. Include:
@@ -256,14 +276,14 @@ focus of your pull request. A useful pull request includes:
 Before requesting review, confirm that:
 
 - [ ] The change is focused and avoids unrelated formatting.
+- [ ] I commented on the related issue and received maintainer assignment
+      before opening this pull request.
 - [ ] Relevant tests or validation were added and run.
 - [ ] Existing behavior is preserved unless the change intentionally updates it.
 - [ ] Interactive UI is keyboard-usable, labeled, and responsive.
 - [ ] Documentation was updated where needed.
 - [ ] No secrets, environment files, browser exports, `node_modules/`, or
       generated `dist/` files are committed.
-- [ ] No backend, cloud database, authentication provider, remote habit-data
-      persistence, or serverless function was introduced.
 
 Push follow-up changes to the same branch instead of opening a second pull
 request. CI will run again automatically.
