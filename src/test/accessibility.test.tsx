@@ -12,7 +12,7 @@ import {
   LibraryPage,
   CalendarPage,
 } from "../App";
-import { AppState, blankState, starterQuests } from "../lib/game";
+import { AppState, Quest, blankState, starterQuests } from "../lib/game";
 
 // Helper to run automated accessibility checks with axe-core
 async function expectNoA11yViolations(container: HTMLElement) {
@@ -279,6 +279,62 @@ describe("Accessibility: Quest Creation Dialog Flow", () => {
     await user.tab();
     expect(closeBtn).toHaveFocus();
   });
+
+  it("creates a custom quest with selected weekdays and passes a11y audit", async () => {
+    const user = userEvent.setup();
+    let state = createTestState();
+    const update = (next: AppState) => {
+      state = next;
+    };
+
+    const { container } = render(
+      <MemoryRouter>
+        <Quests state={state} update={update} />
+      </MemoryRouter>,
+    );
+
+    const newQuestBtn = screen.getByRole("button", { name: /new quest/i });
+    await user.click(newQuestBtn);
+
+    const dialog = screen.getByRole("dialog", {
+      name: /what will you conquer\?/i,
+    });
+    const titleInput = within(dialog).getByLabelText(/quest title/i);
+    await user.type(titleInput, "Gym Workout");
+
+    const freqSelect = within(dialog).getByLabelText(/frequency/i);
+    await user.selectOptions(freqSelect, "Custom");
+
+    // Weekday toggle buttons appear
+    const mondayBtn = within(dialog).getByRole("button", { name: /monday/i });
+    const wednesdayBtn = within(dialog).getByRole("button", {
+      name: /wednesday/i,
+    });
+    const fridayBtn = within(dialog).getByRole("button", { name: /friday/i });
+    const saveBtn = within(dialog).getByRole("button", {
+      name: /create quest/i,
+    });
+
+    // Save button must be disabled when no weekdays are selected
+    expect(saveBtn).toBeDisabled();
+
+    // Select Monday, Wednesday, Friday
+    await user.click(mondayBtn);
+    expect(mondayBtn).toHaveAttribute("aria-pressed", "true");
+    expect(saveBtn).not.toBeDisabled();
+
+    await user.click(wednesdayBtn);
+    await user.click(fridayBtn);
+
+    await expectNoA11yViolations(container);
+
+    await user.click(saveBtn);
+
+    const added = state.quests.find((q) => q.title === "Gym Workout");
+    expect(added).toBeDefined();
+    expect(added?.frequency).toBe("Custom");
+    expect(added?.weekdays).toEqual([1, 3, 5]);
+  });
 });
 
 describe("Accessibility: Quest Editing Dialog Flow", () => {
@@ -328,6 +384,73 @@ describe("Accessibility: Quest Editing Dialog Flow", () => {
       </MemoryRouter>,
     );
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("preserves custom schedule when editing a quest and allows toggling weekdays", async () => {
+    const user = userEvent.setup();
+    const customQuest: Quest = {
+      id: "custom-1",
+      title: "Reading Session",
+      description: "Read 20 pages",
+      icon: "📖",
+      category: "Learning",
+      difficulty: "Easy",
+      xp: 15,
+      duration: 20,
+      frequency: "Custom",
+      weekdays: [1, 3, 5],
+      startDate: "2026-01-01",
+      status: "active",
+      createdAt: new Date().toISOString(),
+    };
+    let state = createTestState({ quests: [customQuest] });
+    const update = (next: AppState) => {
+      state = next;
+    };
+
+    const { container } = render(
+      <MemoryRouter>
+        <Quests state={state} update={update} />
+      </MemoryRouter>,
+    );
+
+    const editBtn = screen.getByRole("button", {
+      name: new RegExp(`Edit "${customQuest.title}"`, "i"),
+    });
+    await user.click(editBtn);
+
+    const dialog = screen.getByRole("dialog", { name: /edit quest/i });
+    const freqSelect = within(dialog).getByLabelText(/frequency/i);
+    expect(freqSelect).toHaveValue("Custom");
+
+    const mondayBtn = within(dialog).getByRole("button", { name: /monday/i });
+    const tuesdayBtn = within(dialog).getByRole("button", { name: /tuesday/i });
+    const wednesdayBtn = within(dialog).getByRole("button", {
+      name: /wednesday/i,
+    });
+    const fridayBtn = within(dialog).getByRole("button", { name: /friday/i });
+
+    expect(mondayBtn).toHaveAttribute("aria-pressed", "true");
+    expect(tuesdayBtn).toHaveAttribute("aria-pressed", "false");
+    expect(wednesdayBtn).toHaveAttribute("aria-pressed", "true");
+    expect(fridayBtn).toHaveAttribute("aria-pressed", "true");
+
+    await expectNoA11yViolations(container);
+
+    // Toggle off Monday, toggle on Tuesday
+    await user.click(mondayBtn);
+    expect(mondayBtn).toHaveAttribute("aria-pressed", "false");
+    await user.click(tuesdayBtn);
+    expect(tuesdayBtn).toHaveAttribute("aria-pressed", "true");
+
+    const saveBtn = within(dialog).getByRole("button", {
+      name: /save changes/i,
+    });
+    await user.click(saveBtn);
+
+    const updated = state.quests.find((q) => q.id === "custom-1");
+    expect(updated?.frequency).toBe("Custom");
+    expect(updated?.weekdays).toEqual([2, 3, 5]);
   });
 });
 

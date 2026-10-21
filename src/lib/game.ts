@@ -10,6 +10,49 @@ export type Completion = { id: string; questId: string; date: string; completedA
 export type Profile = { name: string; avatar: string; theme: Theme; onboarding: boolean; target: number; weekStart: 0 | 1; reducedMotion: boolean }
 export type AppState = { profile: Profile; quests: Quest[]; completions: Completion[]; unlocked: string[] }
 
+export const WEEKDAYS = [
+  { day: 1, label: 'Monday', short: 'Mon' },
+  { day: 2, label: 'Tuesday', short: 'Tue' },
+  { day: 3, label: 'Wednesday', short: 'Wed' },
+  { day: 4, label: 'Thursday', short: 'Thu' },
+  { day: 5, label: 'Friday', short: 'Fri' },
+  { day: 6, label: 'Saturday', short: 'Sat' },
+  { day: 0, label: 'Sunday', short: 'Sun' },
+] as const
+
+export const isValidQuest = (quest: {
+  title?: string
+  frequency?: Quest['frequency']
+  weekdays?: number[]
+}): boolean => {
+  if (!quest.title || !quest.title.trim()) return false
+  if (quest.frequency === 'Custom') {
+    return (
+      Array.isArray(quest.weekdays) &&
+      quest.weekdays.length > 0 &&
+      quest.weekdays.every(d => Number.isInteger(d) && d >= 0 && d <= 6)
+    )
+  }
+  return true
+}
+
+export const validateQuest = (quest: {
+  title?: string
+  frequency?: Quest['frequency']
+  weekdays?: number[]
+}): { valid: boolean; error?: string } => {
+  if (!quest.title || !quest.title.trim()) {
+    return { valid: false, error: 'Quest title is required.' }
+  }
+  if (quest.frequency === 'Custom' && (!Array.isArray(quest.weekdays) || quest.weekdays.length === 0)) {
+    return { valid: false, error: 'Custom quests must repeat on at least one weekday.' }
+  }
+  if (quest.frequency === 'Custom' && Array.isArray(quest.weekdays) && !quest.weekdays.every(d => Number.isInteger(d) && d >= 0 && d <= 6)) {
+    return { valid: false, error: 'Selected weekdays must be valid JavaScript day numbers (0-6).' }
+  }
+  return { valid: true }
+}
+
 export const today = () => {
   const date = new Date()
   const offset = date.getTimezoneOffset()
@@ -40,7 +83,12 @@ export const levelInfo = (xp: number) => {
 export const dueOn = (q: Quest, date: string) => {
   if (q.status !== 'active' || date < q.startDate || (q.endDate && date > q.endDate)) return false
   const day = new Date(`${date}T12:00:00`).getDay()
-  return q.frequency === 'Daily' || (q.frequency === 'Weekdays' && day > 0 && day < 6) || (q.frequency === 'Weekly' && day === (q.weekdays[0] ?? 1)) || (q.frequency === 'Custom' && q.weekdays.includes(day))
+  return (
+    q.frequency === 'Daily' ||
+    (q.frequency === 'Weekdays' && day > 0 && day < 6) ||
+    (q.frequency === 'Weekly' && day === (q.weekdays?.[0] ?? 1)) ||
+    (q.frequency === 'Custom' && Boolean(q.weekdays?.includes(day)))
+  )
 }
 export const streak = (completions: Completion[]) => {
   const days = [...new Set(completions.map(c => c.date))].sort().reverse()
